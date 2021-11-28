@@ -3,17 +3,17 @@ import React, { useEffect, useState } from 'react';
 function App() {
     const [conn,setConn] = useState([])
     useEffect(function(){
-      //@ts-ignore
-        window.dbsdk.initSqlite().then(function(result){
-            console.log("result",result)
-            //@ts-ignore
-            window.dbsdk.addConnection(["mysql","127.0.0.1","root","root"]).then(function(result){
-                console.log(result)
-                setConn(result)
-            }).catch(function(err:Error){
-                console.log("err:",err)
-            })
-        })  
+      // //@ts-ignore
+      //   window.dbsdk.initSqlite().then(function(result){
+      //       console.log("result",result)
+      //       //@ts-ignore
+      //       window.dbsdk.addConnection(["mysql","127.0.0.1","root","root"]).then(function(result){
+      //           console.log(result)
+      //           setConn(result)
+      //       }).catch(function(err:Error){
+      //           console.log("err:",err)
+      //       })
+      //   })  
     },[])
   return (
     <div className="App">

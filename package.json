@@ -5,6 +5,7 @@
   "description": "My Electron application description",
   "main": ".webpack/main",
   "scripts": {
+    "bootstrap": "ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/ yarn install",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
@@ -51,7 +52,7 @@
               "config": "./webpack.renderer.config.js",
               "entryPoints": [
                 {
-                  "html": "./build/index.html",
+                  "html": "./src/index.html",
                   "js": "./src/renderer.ts",
                   "name": "main_window",
                   "preload": {
@@ -77,7 +78,7 @@
     "@typescript-eslint/parser": "^4.0.1",
     "@vercel/webpack-asset-relocator-loader": "1.7.0",
     "css-loader": "^6.0.0",
-    "electron": "16.0.2",
+    "electron": "^14.0.0",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "^2.20.0",
     "fork-ts-checker-webpack-plugin": "^6.0.1",
@@ -90,11 +91,15 @@
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "any-db": "^2.2.1",
+    "any-db-jdbc": "^1.0.0",
     "any-db-mysql": "^2.3.0",
     "any-db-sqlite3": "^2.3.0",
     "electron-promise-ipc": "^2.2.4",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
+  },
+  "resolutions": {
+    "jdbc": "^0.7.6"
   }
 }

@@ -1,6 +1,9 @@
 
+import { Connection, createConnection } from "any-db";
 import * as dbsdk from "./dbsdk"
+import { getConnection } from "./dbsdk";
 import { addConnection, initSqlite3 } from "./dbsdk/sqlite3";
+import "./dbsdk/jdbc"
 
 const { contextBridge, ipcRenderer } = require('electron')
 
@@ -15,12 +18,16 @@ contextBridge.exposeInMainWorld(
 )
 
 
+
+
+
 // createConnection("sqlite3://:memory",function(err:Error,conn:Connection){
 //     console.log(err,conn)
 //     // conn.query('select * from user;',[],function(err:Error,result:ResultSet){
 //     //     console.log(result)
 //     // })
 // })
+
 // var config = {
 //   libpath: 'drivers/Dm7JdbcDriver18-7.6.0.jar',
 //   drivername: 'dm.jdbc.driver.DmDriver',
@@ -32,6 +39,9 @@ contextBridge.exposeInMainWorld(
 //     password: 'SYSAUDITOR'
 //   }
 // }
+
+
+// for mysql native 
 // var mysqlConfig = {
 //   host :    'localhost',
 //   user:     'root',
@@ -39,23 +49,8 @@ contextBridge.exposeInMainWorld(
 //   password: 'root',
 //   database: 'mysql'
 // };
-
-
-// createConnection("sqlite3://:memory", function (err: Error, conn: Connection) {
-//   console.log(err, conn)
-//   const createTableStruct = `
-//   CREATE TABLE IF NOT EXISTS connection(
-//   id int,
-//   name varchar(255),
-//   host varchar(255),
-//   user varchar(255),
-//   password varchar(255)
-//   )
-//   `
-//   conn.query(createTableStruct,[],function(err:Error,result:ResultSet){
-//     console.log("sqlite",err,result)
-//     conn.query("select * from connection",[],function(err,result:ResultSet){
-//       console.log("result",result.rowCount)
-//     })
-//   })
+// createConnection("mysql://root:mariadb@localhost:3306/mysql",function(err:Error,conn:Connection){
+//   console.log(err,conn)
 // })
+
+
