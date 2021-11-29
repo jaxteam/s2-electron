@@ -1,5 +1,5 @@
 {
-  "name": "electron",
+  "name": "@s2/electron",
   "productName": "electron",
   "version": "1.0.0",
   "description": "My Electron application description",
@@ -78,7 +78,7 @@
     "@typescript-eslint/parser": "^4.0.1",
     "@vercel/webpack-asset-relocator-loader": "1.7.0",
     "css-loader": "^6.0.0",
-    "electron": "^14.0.0",
+    "electron": "^14.2.1",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "^2.20.0",
     "fork-ts-checker-webpack-plugin": "^6.0.1",
@@ -91,10 +91,6 @@
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "any-db": "^2.2.1",
-    "any-db-jdbc": "^1.0.0",
-    "any-db-mysql": "^2.3.0",
-    "any-db-sqlite3": "^2.3.0",
-    "electron-promise-ipc": "^2.2.4",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"

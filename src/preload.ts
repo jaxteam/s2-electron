@@ -1,8 +1,6 @@
 
 import { Connection, createConnection } from "any-db";
-import * as dbsdk from "./dbsdk"
-import { getConnection } from "./dbsdk";
-import { addConnection, initSqlite3 } from "./dbsdk/sqlite3";
+import {jdbc,sqlite3} from "@s2/dbsdk"
 import "./dbsdk/jdbc"
 
 const { contextBridge, ipcRenderer } = require('electron')
@@ -10,10 +8,10 @@ const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld(
   'dbsdk',
   {
-    getConnection:dbsdk.getConnection,
-    metadata:dbsdk.getMetadata,
-    initSqlite:initSqlite3,
-    addConnection:addConnection
+    getConnection:jdbc.getConnection,
+    metadata:jdbc.getMetadata,
+    initSqlite:sqlite3.initSqlite3,
+    addConnection:sqlite3.addConnection
   }
 )
 
