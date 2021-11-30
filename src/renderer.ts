@@ -29,7 +29,7 @@
 import './index.css';
 import ReactDOM from 'react-dom'
 import { createElement } from 'react';
-import App from './app';
+import App from './renderer/app';
 
 
 

@@ -1,6 +1,6 @@
 
-import * as dbsdk from "./dbsdk"
-import { addConnection, initSqlite3 } from "./dbsdk/sqlite3";
+import * as dbsdk from "./main/dbsdk"
+import { addConnection, initSqlite3 } from "./main/dbsdk/sqlite3";
 
 const { contextBridge, ipcRenderer } = require('electron')
 
