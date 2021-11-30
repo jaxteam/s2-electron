@@ -1,19 +1,19 @@
 
-import { Connection, createConnection } from "any-db";
-import {jdbc,sqlite3} from "@s2/dbsdk"
-import "./dbsdk/jdbc"
+// import { Connection, createConnection } from "any-db";
+// import {jdbc,sqlite3} from "@s2/dbsdk"
+// import "./dbsdk/jdbc"
 
-const { contextBridge, ipcRenderer } = require('electron')
+// const { contextBridge, ipcRenderer } = require('electron')
 
-contextBridge.exposeInMainWorld(
-  'dbsdk',
-  {
-    getConnection:jdbc.getConnection,
-    metadata:jdbc.getMetadata,
-    initSqlite:sqlite3.initSqlite3,
-    addConnection:sqlite3.addConnection
-  }
-)
+// contextBridge.exposeInMainWorld(
+//   'dbsdk',
+//   {
+//     getConnection:jdbc.getConnection,
+//     metadata:jdbc.getMetadata,
+//     initSqlite:sqlite3.initSqlite3,
+//     addConnection:sqlite3.addConnection
+//   }
+// )
 
 
 
