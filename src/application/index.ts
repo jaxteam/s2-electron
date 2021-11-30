@@ -1,10 +1,10 @@
 import { app, BrowserWindow } from 'electron';
 // import {jdbc,sqlite3} from '@s2/dbsdk'
-import * as anyDb from 'any-db'
+// import * as anyDb from 'any-db'
 import { listConnection ,getConnection} from './db';
-import {DriverConfig, getConnection as getConnect, registerDriver} from './jdbc'
+// import {DriverConfig, getConnection as getConnect, registerDriver} from './jdbc'
 import path from 'path'
-import { createConnection } from 'any-db';
+// import { createConnection } from 'any-db';
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
@@ -14,18 +14,18 @@ export default class Application {
     this.initLocalDatabase()
   }
   initLocalDatabase() {
-    getConnection("sqlite3://:memory").then(function(conn){
-      // console.log(conn)
-      // conn.open
-    })
-    // jdbc.getConnection("")
-    // sqlite3.initSqlite3()
-    console.log("init sqlite3")
-    this.mysqlConnect()
-    console.log("init mysql")
-    // listConnection().then(function(result){
-    //   console.log(result)
+    // getConnection("sqlite3://:memory").then(function(conn){
+    //   // console.log(conn)
+    //   // conn.open
     // })
+    // // jdbc.getConnection("")
+    // // sqlite3.initSqlite3()
+    // console.log("init sqlite3")
+    // this.mysqlConnect()
+    // console.log("init mysql")
+    listConnection().then(function(result){
+      console.log(result)
+    })
     // throw new Error('Method not implemented.');
   }
   mysqlConnect(){
