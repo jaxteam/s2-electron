@@ -1,20 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { DataSourceForm } from './Form';
 
 function App() {
     const [conn,setConn] = useState([])
-    useEffect(function(){
-      //@ts-ignore
-        window.dbsdk.initSqlite().then(function(result){
-            console.log("result",result)
-            //@ts-ignore
-            window.dbsdk.addConnection(["mysql","127.0.0.1","root","root"]).then(function(result){
-                console.log(result)
-                setConn(result)
-            }).catch(function(err:Error){
-                console.log("err:",err)
-            })
-        })  
-    },[])
   return (
     <div className="App">
       <header className="App-header">
@@ -29,6 +17,7 @@ function App() {
         >
           Learn React
         </a>
+        <DataSourceForm></DataSourceForm>
       </header>
     </div>
   );
