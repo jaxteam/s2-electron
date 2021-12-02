@@ -1,7 +1,7 @@
 
 import { Connection, createConnection } from 'any-db';
 //@ts-ignore
-import * as  anyDBJDBC from 'any-db-jdbc'
+import * as  anyjdbc from 'any-db-jdbc'
 //@ts-ignore
 import ResultSet from 'jdbc/lib/resultset';
 
@@ -23,8 +23,7 @@ export interface DriverConfig {
  */
 
 export function registerDriver(config: DriverConfig) {
-  anyDBJDBC.registerConfig(config)
-  console.log(anyDBJDBC)
+  anyjdbc.registerConfig(config)
 }
 
 /**
@@ -65,7 +64,7 @@ export function getMetadataSync(connection: any) {
 
 export function getConnection(url: string) {
   return new Promise(function (resolve, reject) {
-    createConnection(url, function (err: Error, connection: Connection) {
+    anyjdbc.createConnection(url, function (err: Error, connection: Connection) {
       if (err) reject(err)
       resolve(connection)
     })

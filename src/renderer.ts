@@ -30,11 +30,21 @@ import './index.css';
 import ReactDOM from 'react-dom'
 import { createElement } from 'react';
 import App from './app';
+import { Connection } from 'any-db';
+
+export interface IDbsdk {
+    getConnection: (conn:Connection) => Promise<void>,
+}
+
+declare global {
+    interface Window {
+        dbsdk: IDbsdk
+    }
+}
 
 
 
-
-ReactDOM.render(createElement(App),document.getElementById("root"))
+ReactDOM.render(createElement(App), document.getElementById("root"))
 
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');
