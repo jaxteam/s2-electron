@@ -29,22 +29,20 @@
 import './index.css';
 import ReactDOM from 'react-dom'
 import { createElement } from 'react';
-import App from './app';
-import { Connection } from 'any-db';
+import { Provider } from 'react-redux';
+import App from './renderer/app';
+import store from './shared/store'
 
-export interface IDbsdk {
-    getConnection: (conn:Connection) => Promise<void>,
+function Main(){
+    return createElement(Provider,{store:store},createElement(App))
 }
 
-declare global {
-    interface Window {
-        dbsdk: IDbsdk
-    }
-}
+document.addEventListener('DOMContentLoaded', function(event) {
+  ReactDOM.render(createElement(Main),document.getElementById("root"))
+})
 
 
 
-ReactDOM.render(createElement(App), document.getElementById("root"))
 
 
-console.log('👋 This message is being logged by "renderer.js", included via webpack');
+// console.log('👋 This message is being logged by "renderer.js", included via webpack');
