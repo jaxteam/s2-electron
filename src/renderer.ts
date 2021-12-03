@@ -33,8 +33,6 @@ import { Provider } from 'react-redux';
 import App from './renderer/app';
 import store from './shared/store'
 
-
-
 function Main(){
     return createElement(Provider,{store:store},createElement(App))
 }
