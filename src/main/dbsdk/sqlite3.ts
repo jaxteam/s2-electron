@@ -5,13 +5,13 @@ const sqlite = require('any-db-sqlite3')
 
 let sqlite3conn: Connection = null;
 
-function createConnection(): Promise<any> {
-  return getConnection('sqlite3://:memory')
+function createConnection(sqliteURL:string): Promise<any> {
+  return getConnection(sqliteURL)
 }
 
-export function initSqlite3() {
+export function initSqlite3(sqliteURL:string) {
   return new Promise(function (resolve, reject) {
-    createConnection().then(function (conn: Connection) {
+    createConnection(sqliteURL).then(function (conn: Connection) {
       sqlite3conn = conn
       const createTableStruct = `
         CREATE TABLE IF NOT EXISTS connection(
@@ -36,6 +36,16 @@ export function addConnection(args: any) {
   return new Promise(function (resolve, reject) {
     const sql = `INSERT INTO connection VALUES (?,?,?,?,?);`
     sqlite3conn.query(sql, args, function (err: Error, results: ResultSet) {
+      if (err) reject(err)
+      resolve(results)
+    })
+  })
+}
+
+export function listConnection() {
+  return new Promise(function (resolve, reject) {
+    const sql = `select * from connection`
+    sqlite3conn.query(sql, [], function (err: Error, results: ResultSet) {
       if (err) reject(err)
       resolve(results)
     })

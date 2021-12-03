@@ -13,10 +13,10 @@ module.exports = {
   },
   plugins: plugins,
   resolve: {
-    fallback:{
-      "path": false,  
-      "assert": false
-    },
+    // fallback:{
+    //   "path": false,  
+    //   "assert": false
+    // },
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css']
   },
 };

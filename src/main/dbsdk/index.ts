@@ -9,8 +9,6 @@ import { Connection,createConnection } from "any-db"
 export function getMetadata(connection:any) {
   return new Promise(function (resolve, reject) {
     const conn = connection.connection
-    // const metadata = conn.getMetaDataSync()
-    // resolve(metadata)
     conn.getMetaData(function (err:Error, metadata:any) {
       if (err) reject(err)
       resolve(metadata)
@@ -40,7 +38,6 @@ export function getConnection(url:string) {
   return new Promise(function (resolve, reject) {
     createConnection(url, function (err:Error,connection:Connection) {
       if (err) reject(err)
-      console.log(connection)
       resolve(connection)
     })
   })
@@ -89,6 +86,10 @@ export function getDatabaseInfo(metadata:any){
   return maxConfig
 }
 
+
+export function hello(str:string){
+  return `hello ${str} !`
+}
 
 // export function resultSetToArray(err:Error, resultset:any) {
 //   return new Promise(function (resolve, reject) {

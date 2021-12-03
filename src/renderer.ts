@@ -33,16 +33,18 @@ import { Provider } from 'react-redux';
 import App from './renderer/app';
 import store from './shared/store'
 
-store.subscribe(()=>{
-  console.log("getState",store.getState())
-})
+
 
 function Main(){
     return createElement(Provider,{store:store},createElement(App))
 }
 
+document.addEventListener('DOMContentLoaded', function(event) {
+  ReactDOM.render(createElement(Main),document.getElementById("root"))
+})
 
-ReactDOM.render(createElement(Main),document.getElementById("root"))
 
 
-console.log('👋 This message is being logged by "renderer.js", included via webpack');
+
+
+// console.log('👋 This message is being logged by "renderer.js", included via webpack');

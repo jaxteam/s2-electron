@@ -92,6 +92,7 @@
     "any-db": "^2.2.1",
     "any-db-mysql": "^2.3.0",
     "any-db-sqlite3": "^2.3.0",
+    "electron-call": "^0.0.2",
     "electron-promise-ipc": "^2.2.4",
     "electron-redux": "2.0.0-alpha.8",
     "electron-squirrel-startup": "^1.0.0",
