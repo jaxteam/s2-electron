@@ -7,11 +7,16 @@ rules.push({
 });
 
 module.exports = {
+  target:'electron-renderer',
   module: {
     rules,
   },
   plugins: plugins,
   resolve: {
+    fallback:{
+      "path": false,  
+      "assert": false
+    },
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css']
   },
 };

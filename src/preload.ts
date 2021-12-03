@@ -1,18 +1,17 @@
+// import * as dbsdk from "./main/dbsdk"
+// import { addConnection, initSqlite3 } from "./main/dbsdk/sqlite3";
 
-import * as dbsdk from "./main/dbsdk"
-import { addConnection, initSqlite3 } from "./main/dbsdk/sqlite3";
+// const { contextBridge, ipcRenderer } = require('electron')
 
-const { contextBridge, ipcRenderer } = require('electron')
-
-contextBridge.exposeInMainWorld(
-  'dbsdk',
-  {
-    getConnection:dbsdk.getConnection,
-    metadata:dbsdk.getMetadata,
-    initSqlite:initSqlite3,
-    addConnection:addConnection
-  }
-)
+// contextBridge.exposeInMainWorld(
+//   'dbsdk',
+//   {
+//     getConnection:dbsdk.getConnection,
+//     metadata:dbsdk.getMetadata,
+//     // initSqlite:initSqlite3,
+//     // addConnection:addConnection
+//   }
+// )
 
 
 // createConnection("sqlite3://:memory",function(err:Error,conn:Connection){

@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 
 function App() {
-    const [conn,setConn] = useState([])
-    useEffect(function(){
-      //@ts-ignore
-        window.dbsdk.initSqlite().then(function(result){
-            console.log("result",result)
-            //@ts-ignore
-            window.dbsdk.addConnection(["mysql","127.0.0.1","root","root"]).then(function(result){
-                console.log(result)
-                setConn(result)
-            }).catch(function(err:Error){
-                console.log("err:",err)
-            })
-        })  
+    // const [conn,setConn] = useState([])
+    const s = useStore()
+    console.log("getState",s.getState())
+    const data = useSelector(state=>state)
+    const dispatch = useDispatch()
+    const handler = useCallback((type:string)=>{
+      // console.log("type:",type)
+      dispatch({type:type})
     },[])
   return (
     <div className="App">
       <header className="App-header">
         <p>
+          {data}
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <a
@@ -30,6 +27,8 @@ function App() {
           Learn React
         </a>
       </header>
+      <button onClick={()=>handler("INCREMENT")}>+</button>
+      <button onClick={()=>handler("DECREMENT")}>-</button>
     </div>
   );
 }
