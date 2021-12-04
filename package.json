@@ -1,8 +1,8 @@
 {
   "name": "@s2/electron",
-  "productName": "electron",
+  "productName": "Sino Studio",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Sino Studio",
   "main": ".webpack/main",
   "scripts": {
     "bootstrap": "ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/ yarn install",
@@ -22,59 +22,7 @@
   },
   "license": "MIT",
   "config": {
-    "forge": {
-      "packagerConfig": {},
-      "electronRebuildConfig": {
-        "debug": true,
-        "types": [
-          "prod",
-          "dev"
-        ]
-      },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "electron"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ],
-      "plugins": [
-        [
-          "@electron-forge/plugin-webpack",
-          {
-            "mainConfig": "./webpack.main.config.js",
-            "renderer": {
-              "config": "./webpack.renderer.config.js",
-              "entryPoints": [
-                {
-                  "html": "./src/index.html",
-                  "js": "./src/renderer.ts",
-                  "name": "main_window",
-                  "preload": {
-                    "js": "./src/preload.ts"
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      ]
-    }
+    "forge":"forge.config.js" 
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.61",
