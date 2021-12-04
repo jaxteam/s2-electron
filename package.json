@@ -6,7 +6,9 @@
   "main": ".webpack/main",
   "scripts": {
     "bootstrap": "ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/ yarn install",
-    "prestart":"sh prestart.sh",
+    "compile":"sh prestart.sh",
+    "amrstart":"DYLD_INSERT_LIBRARIES=$JAVA_HOME/lib/server/libjvm.dylib yarn start",
+    "prestart":"npm run compile",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
