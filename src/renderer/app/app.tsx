@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import call from 'electron-call';
 import { IDbsdk } from '../../main/bridger';
+import { DataSourceForm } from './Form';
 
 
 const dbsdk = call.use<IDbsdk>('dbsdk')
@@ -41,6 +42,7 @@ function App() {
       </header>
       <button onClick={()=>handler("INCREMENT")}>+</button>
       <button onClick={()=>handler("DECREMENT")}>-</button>
+      <DataSourceForm></DataSourceForm>
     </div>
   );
 }

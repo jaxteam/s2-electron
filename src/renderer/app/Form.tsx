@@ -7,11 +7,7 @@ export function DataSourceForm() {
     const [form]= useForm()
     const onConnect = useCallback(function(){
         console.log(form.getFieldsValue())
-        window.dbsdk.getConnection(form.getFieldValue('url')).then((conn)=>{
-            console.log("conn",conn)
-        }).finally(()=>{
-            console.log("end")
-        })
+      
     },[])
 
     return (
