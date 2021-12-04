@@ -1,16 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import call from 'electron-call';
-import { IDbsdk } from '../../main/bridger';
+import { IDbsdk } from '../../main/bridge';
 import { DataSourceForm } from './Form';
 
 
 const dbsdk = call.use<IDbsdk>('dbsdk')
 async function aaa(){
   console.log(await dbsdk.hello("dbsdk1"))
-  await dbsdk.addConnection(["sdfs","sdfsf","sdfsf","sdfsf"])
-  const rs = await dbsdk.listConnection()
-  console.log("rs",rs)
 }
 
 
@@ -21,7 +18,7 @@ function App() {
     const dispatch = useDispatch()
     const handler = useCallback((type:string)=>{
       // console.log("type:",type)
-      aaa()
+      // aaa()
       dispatch({type:type})
     },[])
   return (
