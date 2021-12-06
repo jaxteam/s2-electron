@@ -2,7 +2,7 @@
 import { Store } from 'redux'
 import store from '../../shared/store'
 import {createElectronApp} from '../electron/electron'
-import '../bridger'
+import '../bridge'
 import { initSqlite3 } from '../dbsdk/sqlite3'
 
 export default class Application{

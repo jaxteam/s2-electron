@@ -1,5 +1,5 @@
 import { Connection, ResultSet } from "any-db"
-import { getConnection } from "."
+import { getConnectionJdbc  as  getConnection } from "./jdbc"
 
 const sqlite = require('any-db-sqlite3')
 
