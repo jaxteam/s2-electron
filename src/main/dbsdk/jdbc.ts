@@ -6,14 +6,16 @@ import MetaDataResultSet from 'jdbc/lib/resultset';
 
 
 export interface DriverConfig {
-  libpath: string
+  libpath?: string
+  host:string
+  port:string
   url: string
   user: string
   password?: string
   drivername: string
   minpoolsize?: number
   maxpoolsize?: number
-  properties: any
+  properties?: any
 }
 
 /**

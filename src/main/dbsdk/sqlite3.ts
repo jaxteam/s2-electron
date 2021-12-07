@@ -1,54 +1,100 @@
 import { Connection, ResultSet } from "any-db"
-import { getConnectionJdbc  as  getConnection } from "./jdbc"
-
-const sqlite = require('any-db-sqlite3')
+import { getConnectionJdbc } from "./jdbc"
 
 let sqlite3conn: Connection = null;
 
-function createConnection(sqliteURL:string): Promise<any> {
-  return getConnection(sqliteURL)
+
+/**
+ * 创建连接
+ * @param url 
+ * @returns 
+ */
+
+function createConnection(url:string): Promise<any> {
+  return getConnectionJdbc(url)
 }
 
-export function initSqlite3(sqliteURL:string) {
+/**
+ * 执行sql语句
+ * @param sql 
+ * @param args 
+ * @returns 
+ */
+function executeSql(sql:string,args?:any[]):Promise<ResultSet>{
+  return new Promise(function(resolve,reject){
+    sqlite3conn.query(sql,args,function(err:Error,result:ResultSet){
+      if(err) reject(err)
+      resolve(result)
+    })
+  })
+}
+
+/**
+ * 初始化sqlite URL sqlite3://:memory
+ * @param url sqlite3://:memory
+ * @returns 
+ */
+
+export function initSqlite3(url:string) {
   return new Promise(function (resolve, reject) {
-    createConnection(sqliteURL).then(function (conn: Connection) {
+    createConnection(url).then(function (conn: Connection) {
       sqlite3conn = conn
       const createTableStruct = `
-        CREATE TABLE IF NOT EXISTS connection(
-        id int,
-        name varchar(255),
-        host varchar(255),
-        user varchar(255),
-        password varchar(255)
+        CREATE TABLE IF NOT EXISTS datasource(
+          id int,
+          name varchar(255),
+          comment varchar(255),
+          kind varchar(255),
+          driver varchar(255),
+          user varchar(255),
+          password varchar(255),
+          host varchar(255),
+          port varchar(255),
+          database varchar(255),
+          chartset varchar(255),
+          url varchar(255)
         )
       `
-      conn.query(createTableStruct, [], function (err: Error, result: ResultSet) {
-        if (err) reject(err)
-        resolve(result)
-      })
+      executeSql(createTableStruct,[]).then(resolve).catch(reject)
     })
   })
 }
 
+/**
+ *  添加数据源
+ * @param props 
+ * @returns 
+ */
 
-
-export function addConnection(args: any) {
+export function addDatasource(props: any):Promise<ResultSet> {
   return new Promise(function (resolve, reject) {
-    const sql = `INSERT INTO connection VALUES (?,?,?,?,?);`
-    sqlite3conn.query(sql, args, function (err: Error, results: ResultSet) {
-      if (err) reject(err)
-      resolve(results)
-    })
+    const keys = Object.keys(props)
+    const values:string[] = Object.values(props)
+    const sql = `INSERT INTO datasource (${keys.join(",")})  VALUES (${keys.map((it)=>"?").join(",")});`
+    executeSql(sql,values).then(resolve).catch(reject)
   })
 }
 
-export function listConnection() {
-  return new Promise(function (resolve, reject) {
-    const sql = `select * from connection`
-    sqlite3conn.query(sql, [], function (err: Error, results: ResultSet) {
-      if (err) reject(err)
-      resolve(results)
-    })
+export function listDatasource():Promise<ResultSet>{
+  return new Promise(function(resolve,reject){
+    const sql = `select * from datasource;`
+    executeSql(sql).then(resolve).catch(reject)
+  })
+}
+
+export function updateDatasource(props:any,id:any):Promise<ResultSet>{
+  return new Promise(function(resolve,reject){
+    const entryies = Object.entries(props)
+    const values = Object.values(props)
+    const sql = `update datasource set ${entryies.map((item:any)=> item[0]+"=?").join(",")}  where id=${id}`
+    executeSql(sql,values).then(resolve).catch(reject)
+  })
+}
+
+export function deleteDatasource(id:any):Promise<ResultSet>{
+  return new Promise(function(resolve,reject){
+    const sql ="delete from datasource where id = ?"
+    executeSql(sql,id).then(resolve).catch(reject)
   })
 }
 

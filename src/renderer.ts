@@ -26,21 +26,49 @@
  * ```
  */
 
-import './index.css';
-import ReactDOM from 'react-dom'
-import { createElement } from 'react';
-import { Provider } from 'react-redux';
-import App from './renderer/app';
-import store from './shared/store'
+// import './index.css';
+// import ReactDOM from 'react-dom'
+// import { createElement } from 'react';
+// import { Provider } from 'react-redux';
+// import App from './renderer/app';
+// import store from './shared/store'
 
-function Main(){
-    return createElement(Provider,{store:store},createElement(App))
+// function Main(){
+//     return createElement(Provider,{store:store},createElement(App))
+// }
+
+// document.addEventListener('DOMContentLoaded', function(event) {
+//   ReactDOM.render(createElement(Main),document.getElementById("root"))
+// })
+import call from 'electron-call'
+import { IDbsdk } from './main/bridge'
+
+const dbsdk = call.use<IDbsdk>('dbsdk')
+
+//@ts-ignore
+window.dbsdk = dbsdk
+const dmconfig={
+  host: "192.168.3.128",
+  port: "3306",
+  drivername: "dm.jdbc.driver.DmDriver",
+  url: "jdbc:dm://192.168.3.128:5237",
+  user: "SYSAUDITOR",
+  password: "SYSAUDITOR"
+}
+async function initDb(){
+  const ds = await dbsdk.listDatasource()
+  console.log("ds",ds)
+  await dbsdk.registerDriver(dmconfig)
+  const result = await dbsdk.hello("sdfs")
+  console.log("result",result)
+  const rs = await dbsdk.getSchema(dmconfig.url,'','%')
+  console.log("rs",rs)
 }
 
-document.addEventListener('DOMContentLoaded', function(event) {
-  ReactDOM.render(createElement(Main),document.getElementById("root"))
-})
+initDb()
 
+
+require("s2-gui")
 
 
 
