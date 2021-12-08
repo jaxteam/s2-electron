@@ -1,6 +1,6 @@
 {
   "name": "@s2/electron",
-  "productName": "Sino Studio",
+  "productName": "SinoStudio",
   "version": "1.0.0",
   "description": "Sino Studio",
   "main": ".webpack/main",
@@ -32,6 +32,7 @@
     "@electron-forge/maker-zip": "^6.0.0-beta.61",
     "@electron-forge/plugin-webpack": "6.0.0-beta.61",
     "@types/jest": "^27.0.3",
+    "@types/redux-logger": "^3.0.9",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "@vercel/webpack-asset-relocator-loader": "1.7.0",
@@ -48,6 +49,7 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.2",
     "@types/any-db": "^2.1.32",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
@@ -63,7 +65,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
-    "redux": "^4.1.2"
+    "redux": "^4.1.2",
+    "redux-logger": "^3.0.6"
   },
   "resolutions": {
     "jdbc": "^0.7.6"

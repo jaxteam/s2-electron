@@ -3,6 +3,8 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 import call from 'electron-call';
 import { IDbsdk } from '../../main/bridge';
 import { DataSourceForm } from './Form';
+import { RootState } from '../../shared/store';
+import {increment,decrement} from '../../shared/slice/counterSlice'
 
 
 const dbsdk = call.use<IDbsdk>('dbsdk')
@@ -13,12 +15,9 @@ async function aaa(){
 
 function App() {
     // const [conn,setConn] = useState([])
-    const s = useStore()
-    const data = useSelector(state=>state)
+    const data = useSelector((state:RootState)=>state.counter.value)
     const dispatch = useDispatch()
     const handler = useCallback((type:string)=>{
-      // console.log("type:",type)
-      // aaa()
       dispatch({type:type})
     },[])
   return (
@@ -37,8 +36,8 @@ function App() {
           Learn React
         </a>
       </header>
-      <button onClick={()=>handler("INCREMENT")}>+</button>
-      <button onClick={()=>handler("DECREMENT")}>-</button>
+      <button onClick={()=>dispatch(increment())}>+</button>
+      <button onClick={()=>dispatch(decrement())}>-</button>
       <DataSourceForm></DataSourceForm>
     </div>
   );

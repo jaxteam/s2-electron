@@ -26,64 +26,64 @@
  * ```
  */
 
-// import './index.css';
-// import ReactDOM from 'react-dom'
-// import { createElement } from 'react';
-// import { Provider } from 'react-redux';
-// import App from './renderer/app';
-// import store from './shared/store'
+import './index.css';
+import ReactDOM from 'react-dom'
+import { createElement } from 'react';
+import { Provider } from 'react-redux';
+import App from './renderer/app';
+import store from './shared/store'
 
-// function Main(){
-//     return createElement(Provider,{store:store},createElement(App))
-// }
-
-// document.addEventListener('DOMContentLoaded', function(event) {
-//   ReactDOM.render(createElement(Main),document.getElementById("root"))
-// })
-import call from 'electron-call'
-import { IDbsdk } from './main/bridge'
-
-const dbsdk = call.use<IDbsdk>('dbsdk')
-
-//@ts-ignore
-window.dbsdk = dbsdk
-// const dmconfig={
-//   host: "192.168.3.128",
-//   port: "3306",
-//   drivername: "dm.jdbc.driver.DmDriver",
-//   url: "jdbc:dm://192.168.3.128:5237",
-//   user: "SYSAUDITOR",
-//   password: "SYSAUDITOR"
-// }
-async function initData(){
-  const dmconfig={
-    host: "192.168.3.128",
-    port: "3306",
-    drivername: "dm.jdbc.driver.DmDriver",
-    url: "jdbc:dm://192.168.3.128:5237",
-    user: "SYSAUDITOR",
-    password: "SYSAUDITOR"
-  }
- const rs=  await dbsdk.addDatasource(dmconfig)
- console.log("rs",rs)
+function Main(){
+    return createElement(Provider,{store:store},createElement(App))
 }
 
-initData()
+document.addEventListener('DOMContentLoaded', function(event) {
+  ReactDOM.render(createElement(Main),document.getElementById("root"))
+})
+// import call from 'electron-call'
+// import { IDbsdk } from './main/bridge'
 
-async function initDb(){
-  dbsdk.listDatasource().then(function(ds){
-    console.log(ds)
-  }).catch((error:Error)=>{
-    console.log("err",error)
-  }).finally(()=>{
-    console.log("ending")
-  })
-}
+// const dbsdk = call.use<IDbsdk>('dbsdk')
 
-initDb()
+// //@ts-ignore
+// window.dbsdk = dbsdk
+// // const dmconfig={
+// //   host: "192.168.3.128",
+// //   port: "3306",
+// //   drivername: "dm.jdbc.driver.DmDriver",
+// //   url: "jdbc:dm://192.168.3.128:5237",
+// //   user: "SYSAUDITOR",
+// //   password: "SYSAUDITOR"
+// // }
+// async function initData(){
+//   const dmconfig={
+//     host: "192.168.3.128",
+//     port: "3306",
+//     drivername: "dm.jdbc.driver.DmDriver",
+//     url: "jdbc:dm://192.168.3.128:5237",
+//     user: "SYSAUDITOR",
+//     password: "SYSAUDITOR"
+//   }
+//  const rs=  await dbsdk.addDatasource(dmconfig)
+//  console.log("rs",rs)
+// }
+
+// initData()
+
+// async function initDb(){
+//   dbsdk.listDatasource().then(function(ds){
+//     console.log(ds)
+//   }).catch((error:Error)=>{
+//     console.log("err",error)
+//   }).finally(()=>{
+//     console.log("ending")
+//   })
+// }
+
+// initDb()
 
 
-require("s2-gui")
+// require("s2-gui")
 
 
 
