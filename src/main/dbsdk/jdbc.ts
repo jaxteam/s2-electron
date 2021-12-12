@@ -242,7 +242,7 @@ export function getTablesJdbc<T>(metadata: any, catalog: string = '', schemaPatt
 
 export function getColumnsJdbc<T>(metadata: any, catalog: string = '', schemaPattern: string = "%", tableNamePattern: string = "%", columnNamePattern: string = "%"): Promise<T[]> {
   return new Promise(function (resolve, reject) {
-    metadata.getTables(catalog, schemaPattern, tableNamePattern, columnNamePattern, function (err: Error, resultSet: any) {
+    metadata.getColumns(catalog, schemaPattern, tableNamePattern, columnNamePattern, function (err: Error, resultSet: any) {
       if (err) reject(err)
       resultSetToArray(err, resultSet).then(function (array) {
         resolve(array)
