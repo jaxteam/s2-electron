@@ -49,43 +49,13 @@ const dbsdk = call.use<IDbsdk>('dbsdk')
 window.dbsdk = dbsdk
 // const dmconfig={
 //   host: "192.168.3.128",
-//   port: "3306",
+//   port: "5237",
 //   drivername: "dm.jdbc.driver.DmDriver",
 //   url: "jdbc:dm://192.168.3.128:5237",
 //   user: "SYSAUDITOR",
 //   password: "SYSAUDITOR"
 // }
-async function initData(){
-  const dmconfig={
-    host: "192.168.3.128",
-    port: "3306",
-    drivername: "dm.jdbc.driver.DmDriver",
-    url: "jdbc:dm://192.168.3.128:5237",
-    user: "SYSAUDITOR",
-    password: "SYSAUDITOR"
-  }
- const rs=  await dbsdk.addDatasource(dmconfig)
- console.log("rs",rs)
-}
-
-initData()
-
-async function initDb(){
-  dbsdk.listDatasource().then(function(ds){
-    console.log(ds)
-  }).catch((error:Error)=>{
-    console.log("err",error)
-  }).finally(()=>{
-    console.log("ending")
-  })
-}
-
-initDb()
-
 
 require("s2-gui")
-
-
-
 
 // console.log('👋 This message is being logged by "renderer.js", included via webpack');
