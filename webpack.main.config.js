@@ -1,3 +1,10 @@
+const CopyPlugin = require("copy-webpack-plugin");
+const plugins =[]
+plugins.push(new CopyPlugin({
+  patterns: [
+    { from: "./drivers",to:"./drivers" },
+  ],
+}))
 module.exports = {
   /**
    * This is the main entry point for your application, it's the first file
@@ -5,6 +12,7 @@ module.exports = {
    */
   target:'electron-main',
   entry: './src/index.ts',
+  plugins: plugins,
   // Put your normal webpack config below here
   module: {
     rules: require('./webpack.rules'),
