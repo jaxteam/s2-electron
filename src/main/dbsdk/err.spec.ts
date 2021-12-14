@@ -22,7 +22,7 @@ describe("parseJavaError",()=>{
             at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
             at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
             at java.base/java.lang.reflect.Method.invoke(Method.java:566)`
-        console.log(parseJavaError(sqlerror))
+        expect(parseJavaError(sqlerror)).toBe("Syntax error")
     })
 
     it('Invalid table or view name error',()=>{
@@ -46,7 +46,7 @@ describe("parseJavaError",()=>{
             at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
             at java.base/java.lang.reflect.Method.invoke(Method.java:566)`
 
-        console.log(parseJavaError(sqlerror))
+        expect(parseJavaError(sqlerror)).toBe("Invalid table or view name [D1DD]")
     })
 
     it('Invalid schema name error',()=>{
@@ -69,7 +69,7 @@ describe("parseJavaError",()=>{
             at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
             at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
             at java.base/java.lang.reflect.Method.invoke(Method.java:566)`
-
-        console.log(parseJavaError(sqlerror))
+        
+        expect(parseJavaError(sqlerror)).toBe("Invalid schema name [SYS1DBA]")
     })
 })
