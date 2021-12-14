@@ -1,5 +1,6 @@
 import { Connection } from 'any-db'
 import path from 'path'
+import { parseJavaError } from './ErrorParse'
 import { DriverConfig, getCatalogsJdbc, getColumnsJdbc, getConnectionJdbc, getDatabaseOrJdbcInfoJdbc, getMaxInfoJdbc, getMetadataJdbc, getSchemaJdbc, getTablesJdbc, getTableTypesJdbc, queryJdbc, registerDriverJdbc } from './jdbc'
 
 export async function registerDriver(config: DriverConfig) {
@@ -24,14 +25,14 @@ export async function execultSql(url: string, sql: string, params: any) {
                     affectedRows: result.affectedRows || result.rowCount
                 }
             }))
-        }).catch(function(){
+        }).catch(function(err:Error){
             reject({
                 executeResult: {
                     status:'fail',
                     executeStart: executeTime,
                     executeEnd: new Date().getTime(),
                     sql: sql,
-                    // affectedRows: result.affectedRows || result.rowCount
+                    message:parseJavaError(err.message),
                 } 
             })
         })
