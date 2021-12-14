@@ -1,7 +1,10 @@
+const { utils: { fromBuildIdentifier } } = require('@electron-forge/core');
 module.exports = {
   packagerConfig: {
-    name: "sino-studio",
+    name: "Sino Studio",
     appVersion: "0.1.0-beta",
+    executableName:"sino",
+    overwrite:true,
     icon: "./icon/ico.icns",
     platform: ['win32', "darwin", "linux"]
   },
@@ -64,5 +67,8 @@ module.exports = {
     ]
   ],
   hooks: {},
-  buildIdentifier: 'sino'
+  buildIdentifier: process.env.IS_BETA ? 'beta' : 'prod',
+  packagerConfig: {
+    appBundleId: fromBuildIdentifier({ beta: 'com.beta.bintools', prod: 'com.bintools' })
+  }
 }
