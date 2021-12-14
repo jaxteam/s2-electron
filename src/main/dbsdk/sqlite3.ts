@@ -1,5 +1,7 @@
 import { Connection, ResultSet, createConnection as createConnect } from "any-db"
 
+const sqlite3  = require("any-db-sqlite3")
+
 let sqlite3conn: Connection = null;
 let sqlite3Path: string = null
 

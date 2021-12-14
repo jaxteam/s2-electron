@@ -1709,9 +1709,9 @@ antd@^4.17.2:
     rc-util "^5.14.0"
     scroll-into-view-if-needed "^2.2.25"
 
-"any-db-jdbc@https://github.com/jaxchow/any-db-jdbc.git":
+"any-db-jdbc@https://github.com/jaxchow/any-db-jdbc":
   version "1.0.0"
-  resolved "https://github.com/jaxchow/any-db-jdbc.git#ecffcf61a2f39f9cb7c3f787a450230911357f25"
+  resolved "https://github.com/jaxchow/any-db-jdbc#ecffcf61a2f39f9cb7c3f787a450230911357f25"
   dependencies:
     jdbc "^0.7.6"
     promiseify "^0.1.2"
