@@ -26,7 +26,7 @@ export async function execultSql(url: string, sql: string, params: any) {
                 }
             }))
         }).catch(function(err:Error){
-            reject({
+            resolve({
                 executeResult: {
                     status:'fail',
                     executeStart: executeTime,
