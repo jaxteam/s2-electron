@@ -98,7 +98,8 @@ export function updateDatasource(props: any, id: any): Promise<ResultSet> {
   return new Promise(function (resolve, reject) {
     const entryies = Object.entries(props)
     const values = Object.values(props)
-    const sql = `update datasource set ${entryies.map((item: any) => item[0] + "=?").join(",")}  where id=${id}`
+    const sql = `update datasource set ${entryies.map((item: any) => item[0] + "=?").join(",")}  where id='${id}'`
+    console.log("sql:",sql,props,id)
     executeSql(sql, values).then(resolve).catch(reject)
   })
 }
@@ -106,6 +107,7 @@ export function updateDatasource(props: any, id: any): Promise<ResultSet> {
 export function deleteDatasource(id: any): Promise<ResultSet> {
   return new Promise(function (resolve, reject) {
     const sql = "delete from datasource where id = ?"
+    console.log("sql:",sql,id)
     executeSql(sql, id).then(resolve).catch(reject)
   })
 }

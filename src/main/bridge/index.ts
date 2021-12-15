@@ -21,6 +21,8 @@ export interface IDbsdk {
     getDatabaseOrJdbcInfo(url:string):any
     addDatasource(props: any):Promise<ResultSet>;
     listDatasource():Promise<ResultSet>
+    deleteDatasource(id:string):Promise<ResultSet>
+    editDatasource(params:any,id:string):Promise<ResultSet>
 }
 
 
@@ -38,5 +40,7 @@ call.provide('dbsdk', {
     getMaxInfo,
     getDatabaseOrJdbcInfo,
     addDatasource,
-    listDatasource
+    listDatasource,
+    updateDatasource,
+    deleteDatasource
 });
