@@ -6,7 +6,8 @@ module.exports = {
     executableName:"sino",
     overwrite:true,
     icon: "./icon/ico.icns",
-    platform: ['win32', "darwin", "linux"]
+    platform: ["all"],
+    appBundleId: fromBuildIdentifier({ beta: 'com.beta.bintools', prod: 'com.bintools' })
   },
   electronRebuildConfig: {
     "debug": true,
@@ -68,7 +69,5 @@ module.exports = {
   ],
   hooks: {},
   buildIdentifier: process.env.IS_BETA ? 'beta' : 'prod',
-  packagerConfig: {
-    appBundleId: fromBuildIdentifier({ beta: 'com.beta.bintools', prod: 'com.bintools' })
-  }
+ 
 }
