@@ -1,0 +1,22 @@
+--- node_modules/any-db/index.js	2021-12-17 09:40:31.000000000 +0800
++++ node_modules/any-db/index.patch.js	2021-12-17 09:40:52.000000000 +0800
+@@ -1,6 +1,11 @@
+ var ConnectionPool = require('any-db-pool')
+ var parseDbUrl     = require('parse-db-url')
+-
++var anysqlite3 = require("any-db-sqlite3")
++var anyjdbc = require("any-db-jdbc")
++var anyDB = {
++  sqlite3:anysqlite3,
++  jdbc:anyjdbc
++}
+ Object.defineProperty(exports, 'adapters', {
+   get: function () {
+     throw new Error(
+@@ -24,5 +29,5 @@
+ 
+ function getAdapter (protocol) {
+   var name = protocol.replace(':', '').split('+').shift()
+-  return require('any-db-' + name)
++  return anyDB[name]
+ }

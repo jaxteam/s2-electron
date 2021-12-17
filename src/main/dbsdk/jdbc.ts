@@ -11,6 +11,7 @@ export interface DriverConfig {
   port:string
   url: string
   user: string
+  kind:string
   password?: string
   drivername: string
   minpoolsize?: number
@@ -24,6 +25,7 @@ export interface DriverConfig {
  */
 
 export function registerDriverJdbc(config: DriverConfig) {
+  // console.log("anyDBJDBC",anyDBJDBC.default.configs)
   anyDBJDBC.registerConfig(config)
 }
 

@@ -1,13 +1,30 @@
+import { configConsumerProps } from 'antd/lib/config-provider'
 import { Connection } from 'any-db'
 import path from 'path'
 import { parseJavaError } from './ErrorParse'
 import { DriverConfig, getCatalogsJdbc, getColumnsJdbc, getConnectionJdbc, getDatabaseOrJdbcInfoJdbc, getMaxInfoJdbc, getMetadataJdbc, getSchemaJdbc, getTablesJdbc, getTableTypesJdbc, queryJdbc, registerDriverJdbc } from './jdbc'
 
+let drivers:any ={}
+//@ts-ignore
+if(process.env.WEBPACK_SERVE===true){
+     drivers={
+        'dm':path.resolve(__dirname, '../../drivers/Dm7JdbcDriver18-7.6.0.jar'),
+        'mysql':path.resolve(__dirname, '../../drivers/mysql-connector-java-8.0.26.jar'),
+        'oracle':path.resolve(__dirname, '../../drivers/ojdbc8.jar'),
+    }
+}else{
+     drivers={
+        'dm':path.resolve(__dirname, './drivers/Dm7JdbcDriver18-7.6.0.jar'),
+        'mysql':path.resolve(__dirname, './drivers/mysql-connector-java-8.0.26.jar'),
+        'oracle':path.resolve(__dirname, './drivers/ojdbc8.jar'),
+    }
+}
+
+
 export async function registerDriver(config: DriverConfig) {
-    // console.log("jdbc:", path.join(__dirname, '../../drivers/Dm7JdbcDriver18-7.6.0.jar'))
-    // console.log("current:", path.join(__dirname, ""))
+    // console.log("drivers:",drivers[config.kind],config)
     return registerDriverJdbc(Object.assign({}, config, {
-        libpath: path.join(__dirname, '../../drivers/Dm7JdbcDriver18-7.6.0.jar'),
+        libpath: drivers[config.kind],
     }))
 }
 
@@ -18,7 +35,7 @@ export async function execultSql(url: string, sql: string, params: any) {
         queryJdbc(conn, sql, params).then(function (result) {
             resolve(Object.assign(result, {
                 executeResult: {
-                    status:'succes',
+                    status:'success',
                     executeStart: executeTime,
                     executeEnd: new Date().getTime(),
                     sql: sql,

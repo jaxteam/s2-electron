@@ -8,7 +8,7 @@
     "bootstrap": "ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/ yarn install",
     "compile": "sh prestart.sh",
     "amrstart": "DYLD_INSERT_LIBRARIES=$JAVA_HOME/lib/server/libjvm.dylib yarn start",
-    "postinstall": "npm run compile",
+    "postinstall": "sh ./patch.sh && npm run compile",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
