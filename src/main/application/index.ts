@@ -16,9 +16,7 @@ export default class Application{
   }
   private initialize(){
     this.app = createElectronApp()
-    // console.log("sqlite3://"+path.resolve(this.app.getPath('userData'),"sino.db"))
-    //TODO: 临时测试写入地址
-    initSqlite3("sqlite3://"+path.resolve(this.app.getPath("home"),"sino.db"))
+    initSqlite3(path.resolve(this.app.getPath("documents"),"sino.db"))
     this.configStore()
   }
   private configStore(){
