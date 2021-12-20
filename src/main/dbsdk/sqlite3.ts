@@ -1,4 +1,5 @@
 import { Connection, ResultSet, createConnection as createConnect } from "any-db"
+import fs from 'fs'
 
 const sqlite3  = require("any-db-sqlite3")
 
@@ -47,9 +48,14 @@ function executeSql(sql: string, args?: any[]): Promise<ResultSet> {
  */
 
 export function initSqlite3(url: string) {
-  sqlite3Path = url
+  
+  if(!fs.existsSync(url)){
+      fs.writeFileSync(url,"")
+  }
+  sqlite3Path ="sqlite3://"+url
+  console.log("file:",sqlite3Path)
   return new Promise(function (resolve, reject) {
-    createConnection(url).then(function (conn: Connection) {
+    createConnection(sqlite3Path).then(function (conn: Connection) {
       sqlite3conn = conn
       const createTableStruct = `
         CREATE TABLE IF NOT EXISTS datasource(
