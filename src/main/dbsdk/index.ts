@@ -1,8 +1,13 @@
 import { configConsumerProps } from 'antd/lib/config-provider'
-import { Connection } from 'any-db'
+import { Connection,  Query,  ResultSet } from 'any-db'
 import path from 'path'
 import { parseJavaError } from './ErrorParse'
 import { DriverConfig, getCatalogsJdbc, getColumnsJdbc, getConnectionJdbc, getDatabaseOrJdbcInfoJdbc, getMaxInfoJdbc, getMetadataJdbc, getSchemaJdbc, getTablesJdbc, getTableTypesJdbc, queryJdbc, registerDriverJdbc } from './jdbc'
+
+
+// interface Query{
+//     cancel():void
+// }
 
 let drivers:any ={}
 //@ts-ignore
@@ -22,16 +27,57 @@ if(process.env.WEBPACK_SERVE===true){
 
 
 export async function registerDriver(config: DriverConfig) {
-    // console.log("drivers:",drivers[config.kind],config)
     return registerDriverJdbc(Object.assign({}, config, {
         libpath: drivers[config.kind],
     }))
 }
 
+
+/**
+ * 可取消执行SQL
+ * @param url 连接地址
+ * @param sql sql语句
+ * @param params 执行参数
+ * @param callback 回调
+ * @returns cancel function 
+ */
+export function executeJdbc(url:string,sql:string,params:any,callback:(err:Error,result:ResultSet)=>void):Function{
+    let query:Query;
+    getConnectionJdbc(url).then(function(conn:Connection){
+        // console.log("query",new Date().getTime())
+        query = conn.query(sql, params, function (err, result) {
+            if (err) console.log(err)
+            callback(null, result)
+        })
+    })
+    return function(){
+        if(query==null){
+            // conn.end()
+        }else{
+            //@ts-ignore
+            query.cancel()
+        }
+    }
+}
+
 export async function execultSql(url: string, sql: string, params: any) {
-    const conn = await getConnectionJdbc(url)
-    const executeTime = new Date().getTime()
-    return new Promise(function (resolve, reject) {
+
+    return new Promise(async function(resolve, reject) {
+        let conn:Connection=null;
+        try{
+            conn = await getConnectionJdbc(url)
+        }catch(err:any){
+            reject({
+                executeResult: {
+                    status:'fail',
+                    executeStart: 0,
+                    executeEnd: new Date().getTime(),
+                    sql: sql,
+                    message:parseJavaError(err.message),
+                } 
+            })
+        }
+        const executeTime = new Date().getTime()
         queryJdbc(conn, sql, params).then(function (result) {
             resolve(Object.assign(result, {
                 executeResult: {
@@ -105,3 +151,5 @@ export async function getDatabaseOrJdbcInfo(url: string) {
     const metadata = await getMetadataJdbc(conn)
     return getDatabaseOrJdbcInfoJdbc(metadata)
 }
+
+
