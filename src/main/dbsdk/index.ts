@@ -67,7 +67,7 @@ export async function execultSql(url: string, sql: string, params: any) {
         try{
             conn = await getConnectionJdbc(url)
         }catch(err:any){
-            reject({
+            resolve({
                 executeResult: {
                     status:'fail',
                     executeStart: 0,
