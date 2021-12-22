@@ -3,7 +3,8 @@ import { Connection, Query, ResultSet } from 'any-db'
 import path from 'path'
 import { parseJavaError } from './ErrorParse'
 import { DriverConfig, getCatalogsJdbc, getColumnsJdbc, getConnectionJdbc, getDatabaseOrJdbcInfoJdbc, getMaxInfoJdbc, getMetadataJdbc, getSchemaJdbc, getTablesJdbc, getTableTypesJdbc, queryJdbc, registerDriverJdbc } from './jdbc'
-
+//@ts-ignore
+import DatabaseMetaData from 'jdbc/lib/databasemetadata'
 const jdbcQueue = new Map<string, Query>()
 
 // interface Query{
@@ -177,3 +178,17 @@ export async function getDatabaseOrJdbcInfo(url: string) {
 }
 
 
+export async function getTypeInfo(url:any):Promise<[]>{
+  const conn = await getConnectionJdbc(url)
+  const dbmd = await getMetadataJdbc(conn)
+  const meta =new DatabaseMetaData(dbmd)
+  return new Promise((resolve,reject)=>{
+    meta.getTypeInfo(function(err:Error,rs:any){
+      if(err) reject(err)
+      rs.toObjArray(function(err:Error,result:any){
+        if(err) reject(err)
+        resolve(result)
+      })
+    })
+  })
+}

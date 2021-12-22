@@ -5,7 +5,7 @@ import * as  anyDBJDBC from 'any-db-jdbc'
 import { DriverConfig, getCatalogsJdbc, getConnectionJdbc, getMaxInfoJdbc, getMetadataJdbc, getSchemaJdbc, getTablesJdbc, getTableTypesJdbc, queryJdbc, useDatabase  } from "../jdbc";
 import { registerDriverJdbc } from "../jdbc"
 import path from 'path'
-import { cancelSql, execultSql } from '../index';
+import { cancelSql, execultSql, getTypeInfo } from '../index';
 //@ts-ignore
 import DatabaseMetaData from 'jdbc/lib/databasemetadata'
 //@ts-ignore
@@ -153,29 +153,9 @@ describe('jdbc test', () => {
   })
 
   it('getTypeinfo',async function(){
-    const conn = await getConnectionJdbc(config.url)
-    const dbmd = await getMetadataJdbc(conn)
-     const meta =new DatabaseMetaData(dbmd)
-    meta.getTypeInfo(function(err:Error,rs:any){
-        // console.log(rs.toObjArray)
-        rs.toObjectArraySync(function(err:Error,array:[]){
-          console.log(array)
-        })
-        // const jdbcRS = JdbcResultSet(rs)
-        // console.log(jdbcRS.toObjArray)
-        // console.log(jdbcRS)
-        // jdbcRS.toObjArray(function(array:any){
-        //     console.log(array)
-        // })
-    })
-    // const types = await getMaxInfoJdbc(dbmd)
-    // console.log("types",types.getTypeInfo) 
-    // types.getTypeInfo.toObjArray(function(err:any,array:any){
-    //   console.log("getTypeInfo:",array) 
-    // })
-    // resultSetToArray(null,types).then(function(array){
-    //   console.log("array",array)
-    // })
+    const array = await getTypeInfo(config.url)
+    // console.log(array)
+    expect(array).not.toBeNull()
   })
 
   
