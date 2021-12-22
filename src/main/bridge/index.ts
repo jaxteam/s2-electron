@@ -1,7 +1,7 @@
-import { ResultSet } from 'any-db';
+import { Connection, ResultSet } from 'any-db';
 import { dialog } from 'electron';
 import call from 'electron-call';
-import { execultSql, databaseOrJdbcInfo, getCatalogs, getColumns, getSchema, getTableTypes, getTables, getMaxInfo, getDatabaseOrJdbcInfo, registerDriver } from '../dbsdk'
+import { execultSql, databaseOrJdbcInfo, getCatalogs, getColumns, getSchema, getTableTypes, getTables, getMaxInfo, getDatabaseOrJdbcInfo, registerDriver,cancelSql, getTypeInfo } from '../dbsdk'
 import { DriverConfig } from '../dbsdk/jdbc';
 import { addDatasource,listDatasource,deleteDatasource,updateDatasource } from '../dbsdk/sqlite3';
 
@@ -23,6 +23,8 @@ export interface IDbsdk {
     listDatasource():Promise<ResultSet>
     deleteDatasource(id:string):Promise<ResultSet>
     editDatasource(params:any,id:string):Promise<ResultSet>
+    cancelSql(url: string, sql: string):void
+    getTypeinfo(conn:Connection):Promise<[]>
 }
 
 
@@ -42,5 +44,7 @@ call.provide('dbsdk', {
     addDatasource,
     listDatasource,
     updateDatasource,
-    deleteDatasource
+    deleteDatasource,
+    cancelSql,
+    getTypeInfo
 });
