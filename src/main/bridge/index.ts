@@ -23,7 +23,7 @@ export interface IDbsdk {
     listDatasource():Promise<ResultSet>
     deleteDatasource(id:string):Promise<ResultSet>
     editDatasource(params:any,id:string):Promise<ResultSet>
-    cancelSql(url: string, sql: string):void
+    cancelSql(url: string, sql: string):Promise<Boolean>
     getTypeinfo(conn:Connection):Promise<[]>
 }
 
