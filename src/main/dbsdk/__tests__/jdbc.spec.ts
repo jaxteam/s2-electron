@@ -5,7 +5,7 @@ import * as  anyDBJDBC from 'any-db-jdbc'
 import { DriverConfig, getCatalogsJdbc, getConnectionJdbc, getMaxInfoJdbc, getMetadataJdbc, getSchemaJdbc, getTablesJdbc, getTableTypesJdbc, queryJdbc, useDatabase  } from "../jdbc";
 import { registerDriverJdbc } from "../jdbc"
 import path from 'path'
-import { execultSql } from '../index';
+import { cancelSql, execultSql } from '../index';
 //@ts-ignore
 import DatabaseMetaData from 'jdbc/lib/databasemetadata'
 //@ts-ignore
@@ -13,20 +13,35 @@ import JdbcResultSet from 'jdbc/lib/resultset'
 import { compose } from 'redux';
 
 describe('jdbc test', () => {
-  var config: DriverConfig = {
-    libpath: path.resolve(__dirname, '../../../../drivers/Dm7JdbcDriver18-7.6.0.jar'),
-    drivername: 'dm.jdbc.driver.DmDriver',
-    host:"192.168.3.128",
-    port:"5237",
-    kind:'dm',
-    url: 'jdbc:dm://192.168.3.128:5237/SYSDBA',
-    user: 'SYSDBA',
-    password: 'SYSDBA',
+  // var config: DriverConfig = {
+  //   libpath: path.resolve(__dirname, '../../../../drivers/Dm7JdbcDriver18-7.6.0.jar'),
+  //   drivername: 'dm.jdbc.driver.DmDriver',
+  //   host:"192.168.3.128",
+  //   port:"5237",
+  //   kind:'dm',
+  //   url: 'jdbc:dm://192.168.3.128:5237/SYSDBA',
+  //   user: 'SYSDBA',
+  //   password: 'SYSDBA',
+  //   properties: {
+  //     user: 'SYSDBA',
+  //     password: 'SYSDBA'
+  //   }
+  // };
+  var config:DriverConfig = {
+    libpath: path.resolve(__dirname, '../../../../drivers/mysql-connector-java-8.0.26.jar'),
+    // libpath: '../drivers/mysql-connector-java-8.0.26.jar',
+    drivername: 'com.mysql.cj.jdbc.Driver',
+    url: 'jdbc:mysql://192.168.2.179:3306',
+    kind:"dm",
+    host:"192.168.2.179",
+    port:"3306",
+    user: 'root',
+    password: 'root',
     properties: {
-      user: 'SYSDBA',
-      password: 'SYSDBA'
+        user: 'root',
+        password: 'root'
     }
-  };
+}
 
   beforeAll(function(){
     registerDriverJdbc(config)
@@ -95,11 +110,16 @@ describe('jdbc test', () => {
 
   it("jdbc execute query promise",function(done){
     const conn = getConnectionJdbc(config.url).then((conn)=>{
-      console.log(queryJdbc(conn,'select * from dual',[])) 
-      // queryJdbc(conn,'select * from "SYSDBA"."DDD"',[]).then(function(result){
-      //   console.log(result)
-      //   // done()
-      // }).finally(()=>done())
+      // console.log(queryJdbc(conn,'select * from dual',[])) 
+      const sql = "select sleep(0.5),user from mysql.user"
+      execultSql(config.url,sql,[]).then(function(result){
+        console.log(result)
+        done()
+      }).finally(()=>done())
+      setTimeout(function(){
+        cancelSql(config.url,sql)
+      },500)
+      
     })
   })
 
@@ -157,15 +177,6 @@ describe('jdbc test', () => {
     //   console.log("array",array)
     // })
   })
-  // it("jdbc test connection",function(done){
-  //   const conn = getConnectionJdbc("jdbc:dm://192.168.3.128:5237").then((conn)=>{
-  //     connectable(conn).then(function(result){
-  //       console.log(result)
-  //       // done()
-  //     }).finally(()=>done())
-  //   }) 
-  // })
-
 
   
 })
