@@ -1,6 +1,13 @@
 const rules = require('./webpack.rules');
 const plugins = require('./webpack.plugins');
+const CopyPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin')
+
+plugins.push(new CopyPlugin({
+  patterns: [
+    { from: "./src/loading.gif",to:"./loading.gif" },
+  ],
+}))
 
 rules.push({
   test: /\.css$/,

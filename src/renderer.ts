@@ -37,16 +37,18 @@
 //     return createElement(Provider,{store:store},createElement(App))
 // }
 
-// document.addEventListener('DOMContentLoaded', function(event) {
-//   ReactDOM.render(createElement(Main),document.getElementById("root"))
-// })
-import call from 'electron-call'
-import { IDbsdk } from './main/bridge'
+document.addEventListener("DOMContentLoaded", function (event) {
+  //   ReactDOM.render(createElement(Main),document.getElementById("root"))
+  //@ts-ignore
+  document.getElementById("loading").style = "display:none;";
+});
+import call from "electron-call";
+import { IDbsdk } from "./main/bridge";
 
-const dbsdk = call.use<IDbsdk>('dbsdk')
+const dbsdk = call.use<IDbsdk>("dbsdk");
 
 //@ts-ignore
-window.dbsdk = dbsdk
+window.dbsdk = dbsdk;
 // const dmconfig={
 //   host: "192.168.3.128",
 //   port: "5237",
@@ -56,6 +58,6 @@ window.dbsdk = dbsdk
 //   password: "SYSAUDITOR"
 // }
 
-require("s2-gui")
+require("s2-gui");
 
 // console.log('👋 This message is being logged by "renderer.js", included via webpack');
