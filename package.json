@@ -7,7 +7,7 @@
   "scripts": {
     "bootstrap": "ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/ yarn install",
     "compile": "sh prestart.sh",
-    "amrstart": "DYLD_INSERT_LIBRARIES=$JAVA_HOME/lib/server/libjvm.dylib yarn start",
+    "armstart": "DYLD_INSERT_LIBRARIES=$JAVA_HOME/jre/lib/server/libjvm.dylib yarn start",
     "postinstall": "sh ./patch.sh && npm run compile",
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -56,7 +56,7 @@
     "@types/react-dom": "^17.0.11",
     "antd": "^4.17.2",
     "any-db": "^2.2.1",
-    "any-db-jdbc": "https://github.com/jaxchow/any-db-jdbc",
+    "any-db-jdbc": "https://github.com/jaxchow/any-db-jdbc#444c17e324c41889a53bce88e373a3c5c6a7fea8",
     "any-db-sqlite3": "^2.3.0",
     "babel-plugin-import": "^1.13.3",
     "copy-webpack-plugin": "^10.1.0",
