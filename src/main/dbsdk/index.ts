@@ -77,7 +77,7 @@ export async function cancelSql(url: string, sql: string):Promise<Boolean> {
 }
 
 export async function execultSql(url: string, sql: string, params: any) {
-
+ 
   return new Promise(async function (resolve, reject) {
     let conn: Connection = null;
     try {
@@ -94,6 +94,7 @@ export async function execultSql(url: string, sql: string, params: any) {
       })
     }
     // console.log("connection",new Date().getTime())
+    console.log("sql",sql)
     const executeTime = new Date().getTime()
     const query = conn.query(sql, params, function (err: Error, result: ResultSet) {
       if (err) {
@@ -118,6 +119,7 @@ export async function execultSql(url: string, sql: string, params: any) {
           }
         }))
       }
+      conn.end()
       // console.log("remove:",new Date().getTime())
       jdbcQueue.delete(url + sql)
     })
@@ -136,31 +138,31 @@ export async function databaseOrJdbcInfo(url: string) {
 export async function getCatalogs(url: string, catalogs: string = "") {
   const conn = await getConnectionJdbc(url)
   const metadata = await getMetadataJdbc(conn)
-  return getCatalogsJdbc(metadata)
+  return getCatalogsJdbc(metadata).finally(()=>conn.end())
 }
 
 export async function getSchema(url: string, catalogs: string = "", schemaPattern: string = "%") {
   const conn = await getConnectionJdbc(url)
   const metadata = await getMetadataJdbc(conn)
-  return getSchemaJdbc(metadata, catalogs, schemaPattern)
+  return getSchemaJdbc(metadata, catalogs, schemaPattern).finally(()=>conn.end())
 }
 
 export async function getTables(url: string, catalog: string = '', schemaPattern: string = "%", tableNamePattern: string = "%", types: string = "") {
   const conn = await getConnectionJdbc(url)
   const metadata = await getMetadataJdbc(conn)
-  return getTablesJdbc(metadata, catalog, schemaPattern, tableNamePattern, types)
+  return getTablesJdbc(metadata, catalog, schemaPattern, tableNamePattern, types).finally(()=>conn.end())
 }
 
 export async function getColumns(url: string, catalog: string = '', schemaPattern: string = "%", tableNamePattern: string = "%", columnNamePattern: string = "%") {
   const conn = await getConnectionJdbc(url)
   const metadata = await getMetadataJdbc(conn)
-  return getColumnsJdbc(metadata, catalog, schemaPattern, tableNamePattern, columnNamePattern)
+  return getColumnsJdbc(metadata, catalog, schemaPattern, tableNamePattern, columnNamePattern).finally(()=>conn.end())
 }
 
 export async function getTableTypes(url: string) {
   const conn = await getConnectionJdbc(url)
   const metadata = await getMetadataJdbc(conn)
-  return getTableTypesJdbc(metadata)
+  return getTableTypesJdbc(metadata).finally(()=>conn.end())
 }
 
 
@@ -189,6 +191,7 @@ export async function getTypeInfo(url:any):Promise<[]>{
         if(err) reject(err)
         resolve(result)
       })
+      conn.end()
     })
   })
 }
