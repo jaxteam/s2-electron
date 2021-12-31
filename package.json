@@ -1,7 +1,7 @@
 {
   "name": "@s2/electron",
   "productName": "Sino Studio",
-  "version": "1.0.0",
+  "version": "0.1.0-Insiders",
   "description": "Sino Studio",
   "main": ".webpack/main",
   "scripts": {

@@ -2,11 +2,12 @@ const { utils: { fromBuildIdentifier } } = require('@electron-forge/core');
 module.exports = {
   packagerConfig: {
     name: "Sino Studio",
-    appVersion: "0.1.0-beta",
+    appVersion: "0.1.0-Insiders",
     executableName:"sino",
     overwrite:true,
     icon: "./icon/ico.icns",
     platform: ["all"],
+    // osxSign:true,
     appBundleId: fromBuildIdentifier({ beta: 'com.beta.bintools', prod: 'com.bintools' })
   },
   electronRebuildConfig: {
